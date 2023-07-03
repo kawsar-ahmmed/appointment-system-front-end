@@ -3,3 +3,9 @@
     background-size: cover;
     background-repeat: no-repeat;
 }
+
+.appointment-background {
+    background: url('../../assets/images/appointment.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}

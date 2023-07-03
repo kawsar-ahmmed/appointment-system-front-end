@@ -4,7 +4,7 @@ import React from 'react';
 const InformationCard = ({cardTitle, cardDescription, img, bgClass}) => {
 
     return (
-        <div className={`rounded-md ${bgClass} lg:w-[450px] w-full py-[52px] flex items-center justify-start lg:mb-16 mb-6  px-6`}>
+        <div className={`rounded-md ${bgClass} xl:w-[400px] lg:w-[400px] md:w-[300px] w-full py-[52px] flex items-center justify-start lg:mb-16 mb-6  px-6`}>
             <div className=' mr-5'>
                 <img src={img} alt="" />
             </div>

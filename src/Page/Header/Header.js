@@ -6,8 +6,8 @@ const Header = () => {
     
     const menuFull = [
         <li><NavLink to='/home'>Home</NavLink></li>,
-        <li><NavLink to='/about'>About</NavLink></li>,
         <li><NavLink to='/appointment'>Appointment</NavLink></li>,
+        <li><NavLink to='/about'>About</NavLink></li>,
         <li><NavLink to='/review'>Review</NavLink></li>,
     ]
     return (
