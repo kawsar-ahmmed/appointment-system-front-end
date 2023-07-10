@@ -3,11 +3,12 @@ import { NavLink } from 'react-router-dom';
 
 const Footer = () => {
     const menuFull = [
-        <li><NavLink to='/home'>Home</NavLink></li>,
-        <li><NavLink to='/appointment'>Appointment</NavLink></li>,
-        <li><NavLink to='/about'>About</NavLink></li>,
-        <li><NavLink to='/review'>Review</NavLink></li>,
-    ]
+        <li key="home"><NavLink to='/home'>Home</NavLink></li>,
+        <li key="appointment"><NavLink to='/appointment'>Appointment</NavLink></li>,
+        <li key="about"><NavLink to='/about'>About</NavLink></li>,
+        <li key="review"><NavLink to='/review'>Review</NavLink></li>,
+    ];
+
     return (
         <div>
             <footer className="footer footer-center p-10 bg-base-200 text-base-content rounded">

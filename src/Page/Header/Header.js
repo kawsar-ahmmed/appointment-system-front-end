@@ -1,15 +1,35 @@
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import logo from '../../assets/images/logo.png'
+import auth from '../../firebase.init';
+import { useAuthState, useSignOut } from 'react-firebase-hooks/auth';
+
 
 const Header = () => {
-    
+    const [user] = useAuthState(auth);
+    const [signOut] = useSignOut(auth);
+    const logOut = () => {
+        signOut()
+    }
+    console.log(user);
+
     const menuFull = [
-        <li><NavLink to='/home'>Home</NavLink></li>,
-        <li><NavLink to='/appointment'>Appointment</NavLink></li>,
-        <li><NavLink to='/about'>About</NavLink></li>,
-        <li><NavLink to='/review'>Review</NavLink></li>,
-    ]
+        <li key="home"><NavLink to='/home'>Home</NavLink></li>,
+        <li key="appointment"><NavLink to='/appointment'>Appointment</NavLink></li>,
+        <li key="about"><NavLink to='/about'>About</NavLink></li>,
+        <li key="review"><NavLink to='/review'>Review</NavLink></li>,
+        <li key="logout-register">
+            {user ? (
+                <NavLink onClick={logOut} to='/login'>Logout</NavLink>
+            ) : (
+                <NavLink to='/login'>Login</NavLink>
+            )}
+        </li>,
+        <li key="user-displayName">
+            {user ? <p>{user.displayName}</p> : <NavLink to='/register'>Register</NavLink>}
+        </li>,
+    ];
+
     return (
         <div className=' container mx-auto'>
             <div className="navbar bg-base-100 lg:my-3">
@@ -28,7 +48,7 @@ const Header = () => {
                             </ul>
                         </div>
                     </div>
-                    <NavLink to='/'><img  className=' lg:w-[220px]' src={logo} alt="" /></NavLink>
+                    <NavLink to='/'><img className=' lg:w-[220px]' src={logo} alt="" /></NavLink>
                 </div>
                 <div className="navbar-end hidden lg:flex">
                     <ul className="menu menu-horizontal px-1 text-accent">
