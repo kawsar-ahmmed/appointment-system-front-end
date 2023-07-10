@@ -3,6 +3,8 @@ import { format } from 'date-fns';
 import './Appointment.css';
 import auth from '../../firebase.init';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { toast } from 'react-toastify';
+
 
 const BookingModal = ({ treatment, date, setTreatment }) => {
     const [user] = useAuthState(auth);
@@ -12,17 +14,37 @@ const BookingModal = ({ treatment, date, setTreatment }) => {
 
     const handleFrom = event => {
         event.preventDefault();
-        setTreatment(null)
         const slot = event.target.slot.value;
-        const booked = {
+        const number = event.target.patientPhone.value;
+        const booking = {
             treatmentId: _id,
             treatment: name,
             date: formattedDate,
             patientName: user.displayName,
             patientEmail: user.email,
             slot,
-            patientPhone: user.phoneNumber
+            patientPhone: number
         }
+        console.log(booking)
+        const url = 'http://localhost:3001/booking'
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'content-type': "application/json"
+            },
+            body: JSON.stringify(booking)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                if (data.success) {
+                    toast(`Appointment Success ${formattedDate} at ${slot}`)
+                }
+                else {
+                    toast.error(`You Already Have An Appointment ${formattedDate} at ${slot}`)
+                }
+                setTreatment(null)
+            })
 
     }
 
@@ -40,8 +62,6 @@ const BookingModal = ({ treatment, date, setTreatment }) => {
                         <input name='date' type="text" value={formattedDate} placeholder="Type here" className="
                         input input-bordered w-full max-w-full disabled:bg-[#E6E6E6] disabled:border-none" disabled />
                         <select name='slot' className="select select-bordered w-full max-w-full">
-                            <option disabled selected>Who shot first?</option>
-
                             {slots.map(slot => <option>
                                 {slot}
                             </option>
